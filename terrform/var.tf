@@ -18,7 +18,7 @@ variable "KubernetesVersion" {
 variable "WorkerNodeInstanceType" {
   description = "EC2 instance type for the worker nodes."
   type        = string
-  default     = "c7a.large"
+  default     = "t3.medium"
 }
 
 variable "WorkerNodeCount" {
