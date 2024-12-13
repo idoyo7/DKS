@@ -12,13 +12,13 @@ variable "ClusterBaseName" {
 variable "KubernetesVersion" {
   description = "Kubernetes version for the EKS cluster."
   type        = string
-  default     = "1.29"
+  default     = "1.31"
 }
 
 variable "WorkerNodeInstanceType" {
   description = "EC2 instance type for the worker nodes."
   type        = string
-  default     = "t3.medium"
+  default     = "c7a.large"
 }
 
 variable "WorkerNodeCount" {
