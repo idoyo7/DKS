@@ -3,10 +3,7 @@ INSTALLATION GUIDE
 ### terraform 환경 변수 저장
 export TF_VAR_KeyName=[각자 ssh keypair]
 echo $TF_VAR_KeyName
-```
 
-```
-### 
 terraform init
 terraform plan
 ```
