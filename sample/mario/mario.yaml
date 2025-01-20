@@ -1,0 +1,59 @@
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: mario
+    namespace: games
+    labels:
+      app: mario
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: mario
+    template:
+      metadata:
+        labels:
+          app: mario
+      spec:
+        containers:
+        - name: mario
+          image: pengbai/docker-supermario
+---
+  apiVersion: v1
+  kind: Service
+  metadata:
+     name: mario
+     namespace: games
+  spec:
+    selector:
+      app: mario
+    ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+    type: NodePort
+---
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    namespace: games
+    name: games-ingress
+    annotations:
+      cert-manager.io/cluster-issuer: mont-prod
+  spec:
+    ingressClassName: nginx
+    rules:
+      - host: mario.montkim.com
+        http:
+          paths:
+          - path: /mario
+            pathType: Prefix
+            backend:
+              service:
+                name: mario
+                port:
+                  number: 80
+    tls:
+    - hosts:
+      - mario.montkim.com
+      secretName: mario-tls
