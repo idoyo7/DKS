@@ -1,12 +1,11 @@
-# Terraform state files
-terraform.tfstate
-terraform.tfstate.backup
-terrform/terraform.tfstate*
-# Terraform lock file
-.terraform.lock.hcl
+# 또는 env 하위에서 특정 파일만 무시하고 싶다면:
+env/aws/
+env/awscliv2.zip
+env/get_helm.sh
+env/kubectl
 
-# Terraform plan file
-*.tfplan
+# Terraform 상태 및 관련 파일 무시
+terrform/terraform.tfstate
+terrform/.terraform/
+terrform/.terraform.lock.hcl
 
-# Terraform working directory
-.terraform/
