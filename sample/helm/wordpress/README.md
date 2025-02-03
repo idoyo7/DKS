@@ -1,6 +1,13 @@
-#/bin/bash
+helm repo add bitnami https://charts.bitnami.com/bitnami
 
-helm upgrade --install memos -n app . -f cvalues.yaml
+# helm install myblog bitnami/wordpress -n wordpress
+
+
+# helm install myblog bitnami/wordpress -n wordpress --version 22.4.18
+
+
+helm upgrade --install myblog bitnami/wordpress -n wordpress --version 22.4.18 -f cvalues.yaml
+
 
 
 DOMAIN="montkim.org"
@@ -15,10 +22,8 @@ CERT_ARN=$(aws acm list-certificates --output json \
     ')
 
 # 예시로 서브도메인을 사용
-WEBDOMAIN="memo.$DOMAIN"
+WEBDOMAIN="word.$DOMAIN"
 
-helm upgrade --install memos -n app . \
-  -f cvalues.yaml \
+helm upgrade --install myblog bitnami/wordpress -n wordpress --version 22.4.18 -f cvalues.yaml \
   --set ingress.annotations."alb\.ingress\.kubernetes\.io/certificate-arn"="$CERT_ARN" \
-  --set ingress.hosts[0].host="$WEBDOMAIN"
-
+  --set ingress.hostname="$WEBDOMAIN"

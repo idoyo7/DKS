@@ -1,0 +1,24 @@
+global:
+  storageclass: "local-path"
+persistence:
+  storageclass: "local-path"
+wordpressUsername : "admin"
+wordpressPassword : "password"
+wordpressBlogName : "DKS BLOG"
+replicaCount : 2
+mariadb:
+  enabled: true
+  auth:
+    rootPassword: rootpassword
+    database: wordpress_db
+    username: wp_user
+    password: wp_password
+  persistence:
+    enabled: true
+    storageClass: "local-path"
+    accessModes:
+      - ReadWriteOnce
+      size: 10Gi
+service : 
+  type : NodePort
+  

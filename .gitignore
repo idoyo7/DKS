@@ -9,3 +9,4 @@ terrform/terraform.tfstate
 terrform/.terraform/
 terrform/.terraform.lock.hcl
 
+sample/mario/rendered-ingress.yaml

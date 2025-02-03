@@ -1,0 +1,46 @@
+global:
+  storageclass: "local-path"
+persistence:
+  storageclass: "local-path"
+
+wordpressUsername: "admin"
+wordpressPassword: "password"
+wordpressBlogName: "DKS BLOG"
+replicaCount: 1
+
+mariadb:
+  enabled: true
+  auth:
+    rootPassword: rootpassword
+    database: wordpress_db
+    username: wp_user
+    password: wp_password
+  persistence:
+    enabled: false
+    # enabled: true
+    # storageClass: "local-path"
+    # accessModes:
+    #   - ReadWriteOnce
+    # size: 10Gi
+
+service:
+  type: NodePort
+  externalTrafficPolicy: Local
+
+ingress:
+  enabled: true
+  # Bitnami 차트에서는 ingressClassName 키를 사용합니다.
+  ingressClassName: "alb"
+  hostname: ""   # 설치 시 도메인 값을 helm --set 으로 지정할 수 있습니다.
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn: ""  # 인증서 ARN도 helm --set 으로 지정 가능
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '15'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+    alb.ingress.kubernetes.io/success-codes: '200'
+    alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
